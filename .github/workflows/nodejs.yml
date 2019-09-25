@@ -9,8 +9,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [10.x]
+        platform: [ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v1
@@ -25,3 +25,9 @@ jobs:
         npm test
       env:
         CI: true
+        
+    # deploy web app using publish profile credentials
+    - uses: azure/appservice-actions/webapp@master
+      with: 
+        app-name: node-rn
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
